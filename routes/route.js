@@ -4,7 +4,7 @@ const config = require('../config/database');
 const User = require('../models/users');
 
 
-router.post('/register', (req, res) => {
+router.post('/addUsers/v1', (req, res) => {
 
   let newUser = new User({
     name: req.body.name,
@@ -17,13 +17,13 @@ router.post('/register', (req, res) => {
     if (err) {
       res.json({
         success: false,
-        msg: 'registrazione failed'
+        msg: 'Errore impossibile aggiungere un utente'
       });
     } else {
       newUser.save();
       res.json({
         success: true,
-        msg: 'Account registrato '
+        msg: 'Utente Aggiunto '
       });
     }
 
@@ -33,7 +33,7 @@ router.post('/register', (req, res) => {
 
 });
 
-router.get('/profile/:name', (req, res) => {
+router.get('/Users/:name/v1', (req, res) => {
   User.getUserByName(req.params.name, (err, user) => {
     if (err) {
       res.json({
@@ -53,7 +53,7 @@ router.get('/profile/:name', (req, res) => {
 /* ===============================================================
      UPDATE User
   =============================================================== */
-router.put('/profile/:id', (req, res) => {
+router.put('/Users/:id/v1', (req, res) => {
 
   User.update({
     _id: req.params.id
@@ -75,7 +75,7 @@ router.put('/profile/:id', (req, res) => {
 
 
 
-router.delete('/:id', function (req, res, next) {
+router.delete('/Users/:id/v1', function (req, res, next) {
   User.remove({
     _id: req.params.id
   }, function (err) {
