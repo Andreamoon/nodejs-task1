@@ -8,7 +8,21 @@ const port = 3000;
 const route = require('./routes/route');
 
 
+const app = express();
 
+//con cors permetto a tutti i domini di raggiungere le mie routes
+// Middleware
+app.use(cors({
+  origin: 'http://localhost:4200'
+}));
+
+//body-parser mi parsa i dati in entrata tipo json
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: false
+}))
+
+app.use('/route', route);
 // Database Connection
 mongoose.connect(config.uri, {
   useMongoClient: true
@@ -27,18 +41,7 @@ mongoose.connection.on('error', (err) => {
 
 
 
-const app = express();
 
-//con cors permetto a tutti i domini di raggiungere le mie routes
-app.use(cors());
-
-//body-parser mi parsa i dati in entrata tipo json
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: false
-}))
-
-app.use('/route', route);
 
 
 

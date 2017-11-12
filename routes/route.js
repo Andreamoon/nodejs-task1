@@ -3,89 +3,41 @@ const router = express.Router();
 const config = require('../config/database');
 const User = require('../models/users');
 
+/* =======================================0
+API CHE MI INSERISCE UN UTENTE
+===============================================*/
+router.post('/addUsers', (req, res) => {
 
-router.post('/addUsers/v1', (req, res) => {
-
-  let newUser = new User({
-    name: req.body.name,
-    username: req.body.username,
-    email: req.body.email,
-    telephone: req.body.telephone
-  });
-
-  User.addUser(newUser, (err, user) => {
-    if (err) {
-      res.json({
-        success: false,
-        msg: 'Errore impossibile aggiungere un utente'
-      });
-    } else {
-      newUser.save();
-      res.json({
-        success: true,
-        msg: 'Utente Aggiunto '
-      });
-    }
-
-  });
-
-
-
+  User.addUsers(req, res);
 });
 
-router.get('/Users/:name/v1', (req, res) => {
-  User.getUserByName(req.params.name, (err, user) => {
-    if (err) {
-      res.json({
-        success: false,
-        msg: 'errore'
-      })
-    } else {
-      res.json({
-        success: true,
-        user: user
-      })
-    }
-  })
+/*==================================================
+API CHE MI TORNA TUTTI GLI UTENTI
+===================================================*/
+router.get('/', (req, res) => {
+  User.getUsers(req, res)
+});
+/*==============================================0
+API CHE MI TORNA GLI UTENTI CON LO STESSO NOME
+================================================*/
+router.get('/users/:name', (req, res) => {
 
+  User.getUserByName(req, res);
 });
 
 /* ===============================================================
-     UPDATE User
+    API PER LA MODIFICA DI UN UTENTE TRAMITE ID
   =============================================================== */
-router.put('/Users/:id/v1', (req, res) => {
-
-  User.update({
-    _id: req.params.id
-  }, {
-    name: req.body.name,
-    username: req.body.username,
-    email: req.body.email,
-    telephone: req.body.telephone
-
-  }, function (err, numberAffected, rawResponse) {
-    //handle it
-    if (err) throw err;
-    res.json({
-      msg: 'aggiornato'
-    })
-  })
-
+router.put('/editUsers/:id', (req, res) => {
+  User.updateUser(req, res);
 });
 
 
-
-router.delete('/Users/:id/v1', function (req, res, next) {
-  User.remove({
-    _id: req.params.id
-  }, function (err) {
-    if (err) return res.status(500).json({
-      error: err
-    })
-    res.json({
-      message: 'Utente eliminato correttamente'
-    })
-  })
+/* ===============================================================
+    API PER LA CANCELLAZIONE DI UN UTENTE TRAMITE ID
+  =============================================================== */
+router.delete('/deleteUser/:id', function (req, res, next) {
+  User.deleteUser(req, res);
 })
 
 module.exports = router;
