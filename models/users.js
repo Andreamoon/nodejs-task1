@@ -61,12 +61,40 @@ module.exports.getUsers = (req, res) => {
     } else {
       res.json({
         msg: 'success',
-        data: data
+        data
       })
     }
   });;
 
 }
+/*==================================================
+  METODO TRAMITE ID MI TORNA UN UTENTE
+====================================================*/
+module.exports.getUserById = (req, res) => {
+  const query = {
+    _id: req.params.id
+  }
+  User.findOne(
+    query, (err, user) => {
+      if (err) {
+        res.json({
+          success: false,
+          msg: 'id scorretto ',
+          err: err
+        });
+      } else {
+        res.send(
+
+          user
+
+        );
+
+      }
+    })
+}
+
+
+
 /*=========================================================
   METODO CHE INSERITO UN NOME RESTITUISCE UN UTENTE
 ============================================================*/
@@ -78,10 +106,16 @@ module.exports.getUserByName = (req, res) => {
 
   User.find(query, (err, user) => {
     if (err) {
-      res.json(err);
+      res.json({
+        success: false,
+        msg: 'nome scorretto ' + err
+      });
     }
 
-    res.json(user);
+    res.json({
+      success: true,
+      msg: 'nome corretto  ' + user
+    });
     console.log(user)
   })
 

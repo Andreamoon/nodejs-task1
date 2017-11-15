@@ -42,10 +42,11 @@ mongoose.connection.on('error', (err) => {
 
 
 
-
-
-
 //start serve
 app.listen(port, () => {
   console.log('server listening on port ' + port);
 })
+
+/*
+IF LISTEN EADRINUUSE ====>  C:\Windows\System32>  taskkill /F /IM node.exe
+*/

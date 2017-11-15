@@ -6,7 +6,7 @@ const User = require('../models/users');
 /* =======================================0
 API CHE MI INSERISCE UN UTENTE
 ===============================================*/
-router.post('/addUsers', (req, res) => {
+router.post('/addUser', (req, res) => {
 
   User.addUsers(req, res);
 });
@@ -17,7 +17,15 @@ API CHE MI TORNA TUTTI GLI UTENTI
 router.get('/', (req, res) => {
   User.getUsers(req, res)
 });
-/*==============================================0
+
+/*==============================================
+API CHE TRAMITE ID TORNA UN UTENTE SPECIFICO
+================================================*/
+router.get('/user/:id', (req, res) => {
+  User.getUserById(req, res);
+});
+
+/*==============================================
 API CHE MI TORNA GLI UTENTI CON LO STESSO NOME
 ================================================*/
 router.get('/users/:name', (req, res) => {
