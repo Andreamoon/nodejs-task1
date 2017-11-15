@@ -1,0 +1,48 @@
+<div class="row">
+  <form id="filter">
+    <label>Filtra la lista utenti</label>
+    <input type="text" [(ngModel)]="term" name="term" />
+  </form>
+  <h1>
+    <i class="fa fa-address-book-o  fa-2x" aria-hidden="true">
+    </i>
+    Rubrica utenti</h1>
+
+  <div class="table-responsive">
+
+    <table class="table table-hover" *ngIf="users?.length > 0 else noCLients">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Username</th>
+          <th>Telefono</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users | filter:term">
+          <td>{{user._id}}</td>
+          <td>{{user.name}}</td>
+          <td>{{user.username}}</td>
+          <td>{{user.telephone}}</td>
+          <td>
+            <a [routerLink]="['/user/'+user._id]" class="btn btn.secondary btn-md">
+              <i class="fa fa-arrow-circle-o-right"></i>Dettagli
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <ng-template #noCLients>
+    <hr>
+    <h5>
+      Non ci sono utenti nella rubrica
+    </h5>
+  </ng-template>
+
+
+
+</div>

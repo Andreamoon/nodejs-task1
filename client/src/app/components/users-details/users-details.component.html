@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-md-6">
+    <a routerLink="/" class="btn btn-link">
+      <i class="fa fa-arrow-circle-o-left"></i>Torna alla Dashboard</a>
+  </div>
+  <div class="col-md-6">
+    <div class="btn-group pull-right">
+      <a [routerLink]="['/edit-user/'+id]" class="btn btn-secondary">Modifica</a>
+      <button type="button" class="btn btn-danger" (click)="onDeleteClick()">Cancella</button>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<div class="card">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <strong>Id: </strong>{{user._id}}</li>
+    <li class="list-group-item">
+      <strong>Nome: </strong>{{user.name}}</li>
+    <li class="list-group-item">
+      <strong>Username: </strong>{{user.username}}</li>
+    <li class="list-group-item">
+      <strong>Email: </strong>{{user.email}}</li>
+    <li class="list-group-item">
+      <strong>Telefono: </strong>{{user.telephone}}</li>
+  </ul>
+</div>
